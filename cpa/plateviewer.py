@@ -207,13 +207,12 @@ class PlateViewer(wx.Frame, CPATool):
 
         self.plateMapSizer.Add(singlePlateMapSizer, 1, wx.EXPAND|wx.ALIGN_CENTER)
 
-    def UpdatePlateMaps(self):
+    def PopulateWellValues(self):
         measurement = self.measurementsChoice.Value
         table       = self.sourceChoice.Value
         aggMethod   = self.aggregationMethodsChoice.Value
         categorical = measurement not in get_numeric_columns_from_table(table)
         fltr        = self.filterChoice.Value
-        self.colorBar.ClearNotifyWindows()
 
         q = sql.QueryBuilder()
         well_key_cols = [sql.Column(p.image_table, col) for col in well_key_columns()]
@@ -252,6 +251,22 @@ class PlateViewer(wx.Frame, CPATool):
                 raise Exception('Could not find filter "%s" in gates or filters'%(fltr))
         wellkeys_and_values = db.execute(str(q))
         wellkeys_and_values = np.array(wellkeys_and_values, dtype=object)
+        self.wellkeys_and_values = wellkeys_and_values
+
+    def UpdatePlateMaps(self):
+        self.PopulateWellValues()
+        self._UpdatePlateMaps()
+
+    def _UpdatePlateMaps(self):
+        measurement = self.measurementsChoice.Value
+        table       = self.sourceChoice.Value
+        aggMethod   = self.aggregationMethodsChoice.Value
+        categorical = measurement not in get_numeric_columns_from_table(table)
+        fltr        = self.filterChoice.Value
+        self.colorBar.ClearNotifyWindows()
+
+        wellkeys_and_values = self.wellkeys_and_values
+
 
         # Replace measurement None's with nan
         for row in wellkeys_and_values:
