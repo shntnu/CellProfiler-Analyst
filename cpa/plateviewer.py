@@ -789,3 +789,18 @@ if __name__ == "__main__":
         import traceback
         traceback.print_exc()
         print "Caught exception while killing VM"
+
+    # Script to use plateviewer interactively
+    # from cpa.plateviewer import *
+    # p.load_file('test.properties')
+    # app = wx.PySimpleApp()
+    # pmb = PlateViewer(None)
+    # pmb.Show()
+
+    # Read csv file where col1 and col2 are plate_id and well_id and col3 is measurement
+    # import csv
+    # data = csv.reader(open('data.csv'))
+    # fields = data.next() # assumes first line is csvheader
+    # pmb.wellkeys_and_values = np.array([ [row[0], row[1], float(row[2])] for row in data])
+    # pmb._UpdatePlateMaps()
+
