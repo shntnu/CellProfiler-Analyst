@@ -790,7 +790,9 @@ if __name__ == "__main__":
         traceback.print_exc()
         print "Caught exception while killing VM"
 
-    # Script to use plateviewer interactively
+    # # Script to use plateviewer interactively
+    # The will presumably work only with IPython shell, invoked like this
+    # $ pythonw32 ${CPhomebrewDirectory}/Cellar/cellprofiler-dev/1/cpdev/bin/ipython --gui=wx
     # from cpa.plateviewer import *
     # p.load_file('test.properties')
     # app = wx.PySimpleApp()
